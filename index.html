@@ -243,13 +243,13 @@
                   var walletAddress = document.getElementById("applyWalletAddressInput").value;
                   var applyResult = document.getElementById("applyResult");
                   var tweetTextarea = document.getElementById("tweetTextarea");
-                  var tweetText = `I'm pledging for the @ordinalgoatclub Goatlist for a #freemint! Why? Because There is no mountain we cant climb and Together, we are the Greatest of All Times. My Ordinal Address is: ${walletAddress} You can pledge here: ${document.location.href}`;
+                  var tweetText = `I'm pledging for the @ordinalgoatclub Goatlist for a #freemint! Why? Because We are the Greatest of All Times & There is no mountain we cant climb. My Ordinal Address is: ${walletAddress} You can pledge here: ${document.location.href}`;
             
                   // Set the tweet text in the textarea
                   tweetTextarea.value = tweetText;
             
                   // Show the application result and tweet textarea
-                  applyResult.innerHTML = "<p class='wl-success'>Your pledge has been submitted for review.</p>";
+                  applyResult.innerHTML = "<p class='wl-success'>Your pledge has been submitted for review. We will follow and DM you if you're GOATED!</p>";
                   tweetTextarea.classList.remove("hidden");
                   tweetTextarea.focus();
                 }
