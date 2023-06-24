@@ -1,5 +1,4 @@
-{
-  "wallets": [
+[
         
         "bc1pa8st4yqwqeu2q54y4xdfa0gaz9wn8qv3a9aqxu7qyum8n85wu63qkm7mzg",
         "bc1pn5vcn6jp23up8qj7zvgemcx64q4g8tmds6sc08vf29pmwyund0psppnpsf",
@@ -171,4 +170,3 @@
         "bc1p5mqv7pth40mtuzpfa2zfh5tdhx850yfw6qfxw3vj0yxr928lsv4sp2zu6s",
         "bc1p2zhrch67a4cwq7rjp07m2zcmzt689saxht5k7um7chg9k52d65vq3pa02f" 
      ]
-}
