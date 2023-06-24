@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <title>GoatList Application - Ordinals Goat Club</title>
+  <title>Ordinal Tamarins - Whitelist</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <link rel="shortcut icon" href="https://www.ordinalsgoatclub.com/favicon.ico">
+  <link rel="shortcut icon" href="https://www.ordinaltamarins.com/favicon.ico">
   <style>
     html,
     body {
@@ -141,88 +141,150 @@
       align-self: center;
       background-color: #c94108;
       color: #ffffff;
-      padding: 12px 16px 12px;
-      border: 0;
+      padding: 12px 16px 12px 16px;
+      margin-left: -1px;
+      border: none;
       cursor: pointer;
-      text-decoration: none;
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
     }
 
-    .check-button-padding {
-      display: flex;
-      align-self: center;
-      background-color: #c94108;
-      color: #ffffff;
-      padding: 25px 16px 25px;
-      border: 0;
-      cursor: pointer;
-      text-decoration: none;
-      border-top-right-radius: 10px;
-      border-bottom-right-radius: 10px;
+    .check-button:hover {
+      background-color: #ad3707;
     }
 
-    .wl-result {
-      margin-top: 10px;
-      font-weight: bold;
-      font-size: 14px;
+    .check-button:focus {
+      outline: none;
     }
 
-    .text-area {
+    .result {
+      margin: 20px 0;
+    }
+
+    .tweet-textarea {
       width: 100%;
-      min-height: 60px;
+      height: 200px;
+      margin-top: 10px;
+      resize: none;
       border: 1px solid #c94108;
+      border-radius: 10px;
+      padding: 10px;
+      font-family: "Courier New";
     }
 
-    .error-text {
-      color: red;
+    .tweet-instructions {
+      font-style: italic;
       margin-top: 10px;
-      font-size: 14px;
-      font-weight: bold;
     }
   </style>
 </head>
 
 <body>
-  <div id="main">
-    <img src="banner.png" alt="" id="logo">
-    <h1>Ordinals Goat Club - Goatlist Application</h1>
-    <div id="steps">
-      <div id="step-1" class="step">
-        <p>Enter your Ordinals Wallet</p>
-        <div class="input-button">
-          <input type="text" id="addr-inp" placeholder="bc1p..." />
-          <a href="javascript:;" class="continue" id="continue-1">Continue</a>
-        </div>
-      </div>
-      <div id="step-2" class="step hidden">
-        <p>Enter your Twitter handle</p>
-        <div class="input-button">
-          <input type="text" id="tw-inp" placeholder="@" />
-          <a href="javascript:;" class="continue" id="continue-2">Continue</a>
-        </div>
-      </div>
-      <div id="step-3" class="step hidden">
-        <p>Copy this link and open it in a new window to tweet your application.</p>
-        <div class="input-button">
-          <textarea id="tweet-url" onclick="this.select();"></textarea>
-          <a href="javascript:;" class="continue-big" id="continue-3">Confirm</a>
-        </div>
-        <p class="p-top-padding">Once you've done that, please click to confirm...</p>
-      </div>
-      <div id="step-4" class="step hidden">
-        <h2>Submitted</h2>
-        <p>Your application has been submitted - If we DM you, you are officially Goated!.</p>
-        <p><strong>Follow <a href="https://twitter.com/ordinalgoatclub" target="_blank" style="text-decoration: none;"><strong class="twitter">@ordinalgoatclub</strong></a> and turn on notifications to stay updated!</strong></p>
-        <p class="thanks">🧡</p>
-      </div>
-      <div id="step-5" class="step hidden">
-        <h2>Wallet Not Found</h2>
-        <p>The provided wallet is not in the list of approved wallets.</p>
-      </div>
-    </div>
-    <script src="https://www.ordinalsgoatclub.com/script.js"></script>
-  </div>
-</body>
+        <div id="main">
+                <h1>Ordinals Goat Club - Goatlist</h1>
+                <div id="container">
+                  <div id="tab-buttons">
+                    <button id="checkButton" class="tab-button active-tab">Check Goatlist</button>
+                    <button id="applyButton" class="tab-button">Pledge for Goatlist</button>
+                  </div>
+                  <div class="tab-view" id="checkView">
+                    <p>Please enter your wallet address below to check if it is Goatlisted:</p>
+                    <div class="input-button">
+                      <input type="text" id="walletAddressInput" class="input" placeholder="Enter wallet address" />
+                      <button id="checkAddressButton" class="check-button">Check</button>
+                    </div>
+                    <div class="result" id="checkResult"></div>
+                  </div>
+                  <div class="tab-view hidden" id="applyView">
+                    <p>Please enter your wallet address below to pledge for the Goatlist:</p>
+                    <div class="input-button">
+                      <input type="text" id="applyWalletAddressInput" class="input" placeholder="Enter wallet address" />
+                      <button id="applyWhitelistButton" class="check-button">Apply</button>
+                    </div>
+                    <div class="result" id="applyResult"></div>
+                    <textarea id="tweetTextarea" class="tweet-textarea" placeholder="Copy and paste the application tweet here"></textarea>
+                    <p class="tweet-instructions">Copy the tweet text above and paste it on Twitter to pledge. We are watching!</p>
+                  </div>
+                </div>
+              </div>
+            
+              <script src="/wallets.json"></script>
+              <script>
+                // Function to check if the address is whitelisted
+                function checkAddress() {
+                  var walletAddress = document.getElementById("walletAddressInput").value;
+                  var checkResult = document.getElementById("checkResult");
+            
+                  // Load the wallets.json file
+                  fetch("wallets.json")
+                    .then((response) => {
+                      if (response.ok) {
+                        return response.json();
+                      } else {
+                        throw new Error("Failed to load wallets.json");
+                      }
+                    })
+                    .then((wallets) => {
+                      // Check if the entered address is in the wallets array
+                      if (wallets.includes(walletAddress.toLowerCase())) {
+                        checkResult.innerHTML = "<p class='wl-success'>Congratulations! You are on the exclusive Goatlist for 1 free mint and will automatically be added to the whitelist for discounted mint price. Thanks! </p>";
+                      } else {
+                        checkResult.innerHTML = "<p class='wl-error'>Sorry, your address is not Goatlisted.</p>";
+                      }
+                    })
+                    .catch((error) => {
+                      console.error(error);
+                      checkResult.innerHTML = "<p class='wl-error'>Failed to load Goatlist data.</p>";
+                    });
+                }
+            
+                // Function to apply for the whitelist
+                function applyWhitelist() {
+                  var walletAddress = document.getElementById("applyWalletAddressInput").value;
+                  var applyResult = document.getElementById("applyResult");
+                  var tweetTextarea = document.getElementById("tweetTextarea");
+                  var tweetText = `I'm pledging for the @ordinalgoatclub Goatlist!%0A%0A Together, we are the Greatest of All Times. My Ordinal Address: ${walletAddress}%0A%0AYou can pledge here: ${document.location.href}`;
+            
+                  // Set the tweet text in the textarea
+                  tweetTextarea.value = tweetText;
+            
+                  // Show the application result and tweet textarea
+                  applyResult.innerHTML = "<p class='wl-success'>Your pledge has been submitted for review.</p>";
+                  tweetTextarea.classList.remove("hidden");
+                  tweetTextarea.focus();
+                }
+            
+                // Event listener for the check button
+                var checkAddressButton = document.getElementById("checkAddressButton");
+                checkAddressButton.addEventListener("click", checkAddress);
+            
+                // Event listener for the apply button
+                var applyWhitelistButton = document.getElementById("applyWhitelistButton");
+                applyWhitelistButton.addEventListener("click", applyWhitelist);
+            
+                // Event listener for tab buttons
+                var checkButton = document.getElementById("checkButton");
+                var applyButton = document.getElementById("applyButton");
+                var checkView = document.getElementById("checkView");
+                var applyView = document.getElementById("applyView");
+                var tweetTextarea = document.getElementById("tweetTextarea");
+            
+                checkButton.addEventListener("click", function () {
+                  checkButton.classList.add("active-tab");
+                  applyButton.classList.remove("active-tab");
+                  checkView.classList.remove("hidden");
+                  applyView.classList.add("hidden");
+                  tweetTextarea.classList.add("hidden");
+                });
+            
+                applyButton.addEventListener("click", function () {
+                  applyButton.classList.add("active-tab");
+                  checkButton.classList.remove("active-tab");
+                  applyView.classList.remove("hidden");
+                  checkView.classList.add("hidden");
+                  tweetTextarea.classList.remove("hidden");
+                });
+              </script>
+            </body>
 
 </html>
