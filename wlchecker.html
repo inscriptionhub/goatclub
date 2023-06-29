@@ -210,7 +210,7 @@
                 </div>
               </div>
             
-              <script src="/wallets.json"></script>
+              <script src="/wlwallets.json"></script>
               <script>
                 // Function to check if the address is whitelisted
                 function checkAddress() {
@@ -218,7 +218,7 @@
                   var checkResult = document.getElementById("checkResult");
             
                   // Load the wallets.json file
-                  fetch("wallets.json")
+                  fetch("wlwallets.json")
                     .then((response) => {
                       if (response.ok) {
                         return response.json();
